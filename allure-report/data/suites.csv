@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","7314","should not login with invalid credentials @smoke @negative","Login flow – My Demo App (Negative)","Wed Dec 10 15:04:04 CST 2025","passed","Wed Dec 10 15:04:11 CST 2025","","","",""
+"","7916","should login successfully with valid credentials","Login flow - My Demo App","Wed Dec 10 00:12:56 CST 2025","passed","Wed Dec 10 00:13:04 CST 2025","","","",""
+"","10788","shows error with invalid credentials","Login - negative","Tue Dec 09 22:32:56 CST 2025","broken","Tue Dec 09 22:33:07 CST 2025","","","",""
