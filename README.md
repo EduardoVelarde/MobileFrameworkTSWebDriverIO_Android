@@ -28,3 +28,14 @@ npm run test:smoke       # solo suite smoke
 
 ## Reportes Allure
 npm run report:allure
+
+### Screenshots y legibilidad del reporte
+- El framework adjunta screenshot automático en Allure cuando una prueba falla.
+- Si quieres screenshot también en pruebas exitosas, habilita:
+
+```bash
+export SCREENSHOT_ON_PASS=true
+```
+
+- Para tener reportes más legibles, usa tags dentro del nombre del test (ej: `@smoke @negative @cart`).
+  El framework transforma esos tags en metadatos de Allure (tags, severity y feature).

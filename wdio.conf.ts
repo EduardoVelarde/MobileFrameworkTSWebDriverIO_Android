@@ -1,6 +1,7 @@
 import type { Options } from "@wdio/types";
 import path from 'path';
 import fs from 'fs';
+import { attachReadableMetadata, attachScreenshotToAllure } from './tests/utils/tools';
 
 const appPath = path.join(process.cwd(), 'apps', 'mydemo.apk');
 if (!fs.existsSync(appPath)) {
@@ -44,7 +45,12 @@ export const config: Options.Testrunner = {
     "spec",
     [
       "allure",
-      { outputDir: "allure-results", disableWebdriverStepsReporting: true },
+      {
+        outputDir: 'allure-results',
+        disableWebdriverStepsReporting: true,
+        disableWebdriverScreenshotsReporting: true,
+        addConsoleLogs: true,
+      },
     ],
   ],
   mochaOpts: { ui: "bdd", timeout: 120000,grep: process.env.GREP || '', },
@@ -55,6 +61,23 @@ export const config: Options.Testrunner = {
     browser.addCommand("resetAppIfNeeded", async () => {
       if (process.env.RESET_APP === "true") await driver.reset();
     });
+  },
+
+  beforeTest: async function (test) {
+    attachReadableMetadata(test.title);
+  },
+
+  afterTest: async function (test, _context, result) {
+    const safeTitle = test.title.replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-').toLowerCase();
+
+    if (result.passed) {
+      if (process.env.SCREENSHOT_ON_PASS === 'true') {
+        await attachScreenshotToAllure(`✅-${safeTitle}`);
+      }
+      return;
+    }
+
+    await attachScreenshotToAllure(`❌-${safeTitle}`);
   },
 };
 
