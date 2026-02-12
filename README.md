@@ -39,3 +39,25 @@ export SCREENSHOT_ON_PASS=true
 
 - Para tener reportes más legibles, usa tags dentro del nombre del test (ej: `@smoke @negative @cart`).
   El framework transforma esos tags en metadatos de Allure (tags, severity y feature).
+
+
+## Gestos reutilizables (swipe)
+En `tests/utils/device.ts` tienes helpers para swipe vertical con control de pixeles:
+
+- `swipeUpByPixels(pixels, options)`
+- `swipeDownByPixels(pixels, options)`
+- `swipeByPixels(direction, pixels, options)`
+- `swipeUntilElement(element, { direction, pixelsPerSwipe, maxSwipes, anchorXPercent, durationMs })`
+
+Ejemplo:
+
+```ts
+import { swipeUntilElement, swipeUpByPixels } from '../utils/device';
+
+await swipeUpByPixels(300);
+await swipeUntilElement($('~mi elemento objetivo'), {
+  direction: 'up',
+  pixelsPerSwipe: 250,
+  maxSwipes: 10,
+});
+```
